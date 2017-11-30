@@ -19,12 +19,22 @@ public class HelloController {
     public String hello(){
         return "Hello World";
     }
+
     @RequestMapping(value = "/show")
     @ResponseBody
     public String show(@RequestParam(value = "name")String id){
         User user = userService.findUserById(id);
         if(null != user)
             return user.getUserId()+"/"+user.getEmail()+"/"+user.getPhoneNum();
+        else return "null";
+    }
+
+    @RequestMapping(value = "/show2")
+    @ResponseBody
+    public String showUser(@RequestParam(value ="name") String id) {
+        User user = userService.getUser(id);
+        if (null != user)
+            return "Current find user = " + user.getUserId() + ", and email =" + user.getEmail() + ", psw=" + user.getPsw();
         else return "null";
     }
 }

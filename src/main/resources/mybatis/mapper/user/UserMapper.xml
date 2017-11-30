@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.silly.shop.mapper.user.UserMapper">
+    <!-- 开启基于redis的二级缓存 -->
+    <!--cache type="com.silly.shop.context.RedisCache"/-->
+
+    <parameterMap type="com.silly.shop.model.user.User"	id="UserMap" />
+
+    <!-- Result Map -->
+    <resultMap type="com.silly.shop.model.user.User" id="UserResultMap">
+        <result column="userId" property="userId" jdbcType="VARCHAR" />
+        <result column="phoneNum" property="phoneNum" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="psw" property="psw" jdbcType="VARCHAR" />
+        <result column="avastar" property="avastar" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getUserfromId"  parameterType="java.lang.String"  resultMap="UserResultMap" useCache="true">
+        SELECT * FROM t_user
+        WHERE userId=#{userId}
+    </select>
+
+    <update id="updatePswFromId">
+        UPDATE t_user SET psw = #{psw}, email = #{email}
+        WHERE userId = #{id} LIMIT 1
+    </update>
+
+    <delete id="deleteUserFromId" parameterType="java.lang.String">
+        DELETE FROM t_user WHERE userId = #{userId}
+    </delete>
+</mapper>

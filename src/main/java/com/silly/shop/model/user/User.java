@@ -1,10 +1,12 @@
 package com.silly.shop.model.user;
 
+import java.io.Serializable;
+
 /**
  * Created by yunlong.zhang on 2017/11/5.
  */
-public class User {
-
+public class User implements Serializable{
+    private static final long serialVersionUID = -1L;
     String userId;
     String phoneNum;
     String email;
